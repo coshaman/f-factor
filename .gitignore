@@ -1,0 +1,6 @@
+archive_4stc/
+**/__pycache__/
+research/rank4_balanced_ffactor/manuscript/rendered/
+research/rank4_balanced_ffactor/manuscript/*.aux
+research/rank4_balanced_ffactor/manuscript/*.log
+research/rank4_balanced_ffactor/manuscript/*.blg

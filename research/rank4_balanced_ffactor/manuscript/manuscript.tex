@@ -1,0 +1,408 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\Z}{\mathbb Z}
+
+\title{Closing the Rank-Four Gap for $f$-Factors in Balanced Hypergraphs}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study exact incidence-degree problems in balanced hypergraphs. Previous
+work established polynomial solvability for rank at most three and
+NP-completeness for non-uniform balanced hypergraphs using a rank-five
+construction, leaving rank four open. We close this gap. We give a simple
+rank-four selector gadget and prove that it is balanced. A reduction from
+bounded-occurrence three-dimensional matching shows that both the
+$f$-factor problem and the perfect $f$-matching problem are NP-complete even
+when the maximum degree is at most ten and $\max_v f(v)\le5$. Applying the
+standard vertex-expansion operation yields NP-completeness of ordinary
+Perfect Matching for non-uniform Mengerian hypergraphs of rank at most four
+and maximum degree at most fifteen. Since Mengerian hypergraphs are ideal,
+the same instances give an ideal-hypergraph corollary. Thus the complexity
+dichotomy by rank bound for non-uniform balanced $f$-factor and perfect
+$f$-matching problems is polynomial for bounds at most three and
+NP-complete already for bound four.
+\end{abstract}
+
+\section{Introduction}
+
+Let $H=(V,E)$ be a finite hypergraph. For a function
+$f:V\to\Z_{\ge0}$, an $f$-factor is a subset of edges in which vertex $v$
+has incidence degree exactly $f(v)$. The related perfect $f$-matching
+problem permits nonnegative integer multiplicities on edges. These are
+natural exact-covering problems, and their complexity depends strongly on
+the incidence structure of $H$.
+
+Balanced hypergraphs are defined by the absence of strong odd cycles. Their
+incidence matrices have strong integrality properties; in particular,
+balanced hypergraphs of rank at most three have totally unimodular incidence
+matrices. Beckenbach and Scheidweiler established polynomial solvability in
+that range and proved NP-completeness for non-uniform balanced hypergraphs
+with a rank-five reduction \cite{BS17}. Their paper explicitly identified
+rank four as the remaining case; the same boundary is recorded in the more
+detailed dissertation account \cite{Beckenbach2019}.
+
+We prove that rank four is already hard. The central gadget replaces the
+rank-five selector edge used previously. For every source triple, it has a
+center $c$, helpers $h_1,\ldots,h_4$, auxiliary vertices $r_1,r_2$, four
+fallback edges, two rank-four selector edges, one rank-three synchronizing
+edge, and three source ports. Two equations at $r_1,r_2$ synchronize the
+selector edges; the center equation then forces either zero or all three
+ports. The only delicate point is global balancedness, which follows from a
+case analysis of strong cycles.
+
+Our results are as follows.
+
+\begin{theorem}[Balanced rank-four factors]
+The $f$-factor problem and the perfect $f$-matching problem are
+NP-complete for non-uniform balanced hypergraphs of rank at most four. The
+hardness holds for instances satisfying
+\[
+\Delta(H)\le10,\qquad \max_{v\in V}f(v)\le5.
+\]
+\end{theorem}
+
+\begin{theorem}[Mengerian rank-four perfect matching]
+Perfect Matching is NP-complete for non-uniform Mengerian hypergraphs of
+rank at most four and maximum degree at most fifteen.
+\end{theorem}
+
+The construction is non-uniform. We make no claim about uniform rank-four
+hypergraphs, nor about counting versions of the problems.
+
+\section{Preliminaries}
+
+We use simple hypergraphs: distinct edges are distinct subsets of $V$, and
+no repeated edges occur. The degree of $v$ is the number of edges containing
+$v$, and $\Delta(H)$ is the maximum degree. The rank is
+$\max_{e\in E}|e|$.
+
+\begin{definition}[Strong cycle and balancedness]
+A strong cycle of length $k\ge2$ is a cyclic sequence of distinct vertices
+$v_1,\ldots,v_k$ and distinct edges $e_1,\ldots,e_k$ such that
+\[
+e_i\cap\{v_1,\ldots,v_k\}=\{v_i,v_{i+1}\}
+\]
+for every $i$, with indices modulo $k$. A hypergraph is balanced if it has
+no strong cycle of odd length.
+\end{definition}
+
+\begin{definition}[$f$-factors and perfect $f$-matchings]
+An $f$-factor is a subset $F\subseteq E$ satisfying
+\[
+|\{e\in F:v\in e\}|=f(v)\quad(v\in V).
+\]
+A perfect $f$-matching is a vector $x\in\Z_{\ge0}^{E}$ satisfying
+\[
+\sum_{e\ni v}x(e)=f(v)\quad(v\in V).
+\]
+When $f\equiv1$, the latter is an ordinary perfect matching.
+\end{definition}
+
+\begin{definition}[Mengerian and ideal hypergraphs]
+For a hypergraph $K$, let $\nu(K)$ be its maximum matching size and
+$\tau(K)$ its minimum vertex-cover size. For a nonnegative integer vector
+$a$ on $V(K)$, let $K^a$ denote the vertex expansion obtained by replacing
+$v$ with $a(v)$ clones and replacing every incident edge by all choices of
+one clone. A hypergraph is Mengerian if
+\[
+\nu(K^a)=\tau(K^a)
+\]
+for every $a$. It is ideal if its vertex-cover polyhedron
+\[
+\{y\in\mathbb R_{\ge0}^{V}:\sum_{v\in e}y_v\ge1\ (e\in E)\}
+\]
+has only integral vertices.
+\end{definition}
+
+Balanced hypergraphs are Mengerian, and every Mengerian hypergraph is ideal;
+these are standard min--max consequences for balanced incidence matrices
+and their expansions \cite{BS17,Beckenbach2019}.
+
+\section{The rank-four construction}
+
+We reduce from three-dimensional matching. The source consists of disjoint
+sets $X,Y,Z$ of equal size and a set
+$M\subseteq X\times Y\times Z$. A perfect 3-dimensional matching is a set
+of triples covering every source vertex exactly once. We use the standard
+bounded-occurrence version in which every source vertex occurs in at most
+three triples; this version is NP-complete \cite{GJ79}.
+
+For each $e=(v_1,v_2,v_3)\in M$, introduce private vertices
+\[
+c_e,h_{e,1},h_{e,2},h_{e,3},h_{e,4},r_{e,1},r_{e,2}.
+\]
+The edges of the gadget are
+\begin{align*}
+U_{e,i}&=\{c_e,h_{e,i}\} &&(1\le i\le4),\\
+B_{e,1}&=\{c_e,h_{e,1},h_{e,2},r_{e,1}\},\\
+B_{e,2}&=\{c_e,h_{e,3},h_{e,4},r_{e,2}\},\\
+A_e&=\{c_e,r_{e,1},r_{e,2}\},\\
+P_{e,j}&=\{c_e,v_j\} &&(1\le j\le3).
+\end{align*}
+Set $f(c_e)=5$ and $f(w)=1$ for every other vertex. The only shared
+vertices are the source vertices; all gadget vertices are private.
+
+\begin{lemma}[Two local modes]
+In every $f$-factor, each gadget is in exactly one of the following modes.
+\begin{enumerate}[label=(\roman*)]
+\item OFF: $A_e$ and all four $U_{e,i}$ are selected, while no $B$-edge or
+source port is selected.
+\item ON: both $B$-edges and all three source ports are selected, while
+$A_e$ and all four $U$-edges are unselected.
+\end{enumerate}
+Both modes satisfy all local equations.
+\end{lemma}
+
+\begin{proof}
+Write $u_i,b_1,b_2,a,p_j\in\{0,1\}$ for the edge indicators. The
+$r$-vertices give
+\[
+b_1+a=1,\qquad b_2+a=1.
+\]
+Thus $b_1=b_2=b$ and $a=1-b$. Each helper gives $u_i+b=1$, hence
+$u_i=1-b$. At the center,
+\[
+4(1-b)+2b+(1-b)+\sum_{j=1}^3p_j=5,
+\]
+so $\sum_jp_j=3b$. If $b=0$, all ports are absent; if $b=1$, all three
+ports are present. Substitution verifies both modes.
+\end{proof}
+
+\section{Balancedness}
+
+The following lemma is the structural core of the reduction.
+
+\begin{lemma}
+Every strong cycle of length greater than two in the constructed hypergraph
+uses only size-two edges.
+\end{lemma}
+
+\begin{proof}
+The only edges of size greater than two are $B_{e,1},B_{e,2},A_e$. Fix a
+gadget $e$ and suppose first that $c_e$ is a cycle vertex. A non-size-two
+edge containing $c_e$ can contain at most one other cycle vertex. If that
+vertex is an $h_{e,i}$, the only other edge incident with it is $U_{e,i}$;
+the two cycle edges at it therefore return immediately to $c_e$, producing
+only a 2-cycle. If the other vertex is $r_{e,1}$ (the other case is
+symmetric), continuation through $A_e$ either uses $r_{e,2}$ as well, in
+which case $A_e$ contains the three cycle vertices $c_e,r_{e,1},r_{e,2}$,
+contrary to strength, or uses $c_e$ and closes a 2-cycle. The same argument
+with $B_{e,1}$ applies when the current edge is $A_e$.
+
+Now suppose $c_e$ is not a cycle vertex. No size-two edge incident with
+$c_e$ can be a cycle edge, because it contains only one cycle vertex. Thus
+no $U$- or $P$-edge occurs. Among the remaining edges, the private supports
+intersect only as
+\[
+B_{e,1}\cap A_e=\{r_{e,1}\},\quad
+A_e\cap B_{e,2}=\{r_{e,2}\},\quad
+B_{e,1}\cap B_{e,2}=\varnothing.
+\]
+They form a path, not a cycle. A two-edge strong cycle is impossible because
+each pair shares at most one vertex, while a 2-cycle requires two common
+cycle vertices. Different gadgets have disjoint private vertices. Hence no
+strong cycle avoiding $c_e$ can use a non-size-two edge.
+
+It follows that every strong cycle of length greater than two consists only
+of $U$- and $P$-edges. These form a bipartite graph with gadget centers on
+one side and source/helper vertices on the other, so every such cycle is
+even. Therefore the hypergraph is balanced.
+\end{proof}
+
+\section{Hardness for balanced hypergraphs}
+
+\begin{theorem}
+The construction has an $f$-factor if and only if the source 3DM instance
+has a perfect matching.
+\end{theorem}
+
+\begin{proof}
+Given a perfect source matching, put its gadgets in ON mode and all others
+in OFF mode. The local lemma gives the required degree at every private
+vertex and every center. Each source vertex is in exactly one selected
+triple, and hence is incident with exactly one selected port.
+
+Conversely, let $F$ be an $f$-factor. The local lemma assigns each gadget a
+unique mode. Let $M'$ consist of the source triples whose gadgets are ON.
+An original source vertex is incident only with port edges and has required
+degree one. Since an ON gadget selects all three of its ports and an OFF
+gadget selects none, exactly one triple of $M'$ contains each source vertex.
+Thus $M'$ is a perfect 3-dimensional matching.
+\end{proof}
+
+The construction has seven private vertices and ten edges per source triple,
+so it is polynomial. Membership in NP follows by checking a proposed edge
+subset and all incidence degrees. Together with balancedness, this proves
+NP-hardness and NP-completeness for rank at most four.
+
+\begin{corollary}[Perfect $f$-matching]
+The same instances give NP-completeness for perfect $f$-matching.
+\end{corollary}
+
+\begin{proof}
+Every target edge contains a vertex with $f$-value one: a helper on each
+$U$-edge, a helper or $r$-vertex on each $B$-edge, an $r$-vertex on $A_e$,
+and a source vertex on each port. Consequently, in any perfect $f$-matching
+$x$, every edge multiplicity satisfies $x(e)\le1$. Thus $x$ is a 0/1
+vector and is exactly an $f$-factor.
+\end{proof}
+
+\section{Bounded degree and the rank dichotomy}
+
+For the bounded-occurrence source, the target degrees are
+\[
+\deg(c_e)=4+2+1+3=10,
+\quad \deg(h_{e,i})=2,
+\quad \deg(r_{e,i})=2,
+\]
+and every source vertex has degree at most three. Therefore
+$\Delta(H)\le10$ and $\max_v f(v)=5$. This proves the strengthened form of
+Theorem 1.
+
+Combining the present theorem with the prior rank-at-most-three algorithm
+and rank-five hardness gives the precise rank-bound classification:
+\begin{center}
+\begin{tabular}{ccl}
+\toprule
+rank bound & $f$-factor and perfect $f$-matching & status\\
+\midrule
+$r\le3$ & on balanced hypergraphs of rank at most $r$ & polynomial\\
+$r\ge4$ & already on balanced hypergraphs of rank at most $r$ & NP-complete\\
+\bottomrule
+\end{tabular}
+\end{center}
+The second line means that the class with rank bound $r$ contains a hard
+rank-four subclass; it does not assert that every input has rank at least
+four. The construction is non-uniform.
+
+\section{Mengerian perfect matching}
+
+We use the vertex expansion operation from the prior literature, not as a
+new notion. The next proposition records the required details.
+
+\begin{proposition}[Expansion equivalence]
+For any hypergraph $H$ and $f:V(H)\to\Z_{\ge0}$, $H$ has a perfect
+$f$-matching if and only if $H^f$ has an ordinary perfect matching. Moreover,
+$\operatorname{rank}(H^f)\le\operatorname{rank}(H)$.
+\end{proposition}
+
+\begin{proof}
+If $x$ is a perfect $f$-matching, then for every $v$ the incident
+occurrences of original edges number exactly $f(v)$. Assign the $f(v)$
+clones of $v$ bijectively to these occurrences. Choosing the assigned clone
+at every endpoint of each occurrence produces expanded edges that are
+pairwise disjoint and cover all clones. Conversely, project a perfect
+matching of $H^f$ to original edges and let $x(e)$ be the number of matching
+edges projecting to $e$. Counting the clones of each $v$ gives
+$\sum_{e\ni v}x(e)=f(v)$. Expansion replaces, rather than adds, one vertex
+at each endpoint, so rank cannot increase.
+\end{proof}
+
+\begin{proposition}
+If $H$ is balanced, then $H^f$ is Mengerian.
+\end{proposition}
+
+\begin{proof}
+Balanced hypergraphs are Mengerian. Let $g$ be any expansion vector on the
+clones of $H^f$. If the clones of $v$ in $H^f$ are
+$v_1,\ldots,v_{f(v)}$, define
+\[
+h(v)=\sum_{i=1}^{f(v)}g(v_i).
+\]
+Expanding in two stages gives a natural isomorphism
+$(H^f)^g\cong H^h$: the final clone of $v$ is identified by the pair
+$(i,j)$ consisting of an intermediate clone and a clone inside it. Hence
+matching and cover numbers agree, and
+\[
+\nu((H^f)^g)=\nu(H^h)=\tau(H^h)=\tau((H^f)^g).
+\]
+Thus $H^f$ is Mengerian.
+\end{proof}
+
+For the bounded-occurrence construction, every edge contains exactly one
+center, and every center has $f$-value five. Hence
+\[
+|E(H^f)|=5|E(H)|=50|M|,
+\qquad |V(H^f)|=3n+11|M|.
+\]
+The expanded center clones have degree ten. Each helper and each $r$-vertex
+has degree $5\cdot2=10$, while each source vertex has degree at most
+$5\cdot3=15$. Consequently $\Delta(H^f)\le15$, and rank remains at most
+four.
+
+\begin{proof}[Proof of Theorem 2]
+Reduce from bounded-occurrence 3DM-3, construct $H$ as above, and output
+$H^f$. The preceding propositions show that the output is Mengerian, has
+rank at most four and maximum degree at most fifteen, and has a perfect
+matching exactly when the source instance is positive. Perfect Matching is
+in NP because a selected edge subset can be checked for pairwise
+disjointness and full vertex coverage in polynomial time.
+\end{proof}
+
+\begin{corollary}[Ideal hypergraphs]
+Perfect Matching is NP-complete for ideal hypergraphs of rank at most four,
+even with maximum degree at most fifteen.
+\end{corollary}
+
+\begin{proof}
+Every Mengerian hypergraph is ideal, so this is an immediate consequence of
+Theorem 2.
+\end{proof}
+
+\section{A protected selector interpretation}
+
+The gadget can be viewed as a rank-reduction replacement for the selector in
+the earlier rank-five construction. Under the protected attachment pattern
+used here, the old selector has two local behaviors: four fallbacks with no
+external incidence, or one large selector with three external incidences.
+The subsystem $B_1,B_2,A$ has the same external behavior. The equations
+$b_1+a=b_2+a=1$ synchronize the two rank-four selector edges, and the center
+requirement five forces the port sum to be either zero or three. The
+balancedness proof is specific to the stated private incidence pattern; no
+universal rank-reduction theorem is claimed.
+
+\section{Independent verification}
+
+The proof is independent of computation. As a separate implementation
+check, exact integer programs enumerated all 256 subsets of the eight
+possible triples on a $2\times2\times2$ source universe. The source and
+target answers agreed, direct strong-cycle enumeration found no odd strong
+cycle, and an independent odd-square incidence-matrix test found no
+forbidden submatrix in the tested one- and two-triple cases. The expansion
+solver agreed with the original f-factor solver on all 256 instances; all
+193 instances satisfying the occurrence-at-most-three condition obeyed the
+degree bounds, and all 120 perfect covers of the one-triple expansion
+projected to valid multiplicity vectors. These checks are supplementary
+falsification evidence, not a proof of any theorem.
+
+\section{Conclusion}
+
+The rank-four gap for non-uniform balanced hypergraph $f$-factors and
+perfect $f$-matchings is closed by a rank-four balanced selector. The same
+construction, followed by rank-preserving vertex expansion, gives bounded
+rank hardness for Mengerian and ideal hypergraphs. We deliberately leave
+uniform rank-four and counting variants outside the scope of this paper.
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
