@@ -1,4 +1,4 @@
-MANUSCRIPT_READY_FOR_SUBMISSION
+EJC_STRONG_ACCEPT_READY
 
 Proved consequences of the frozen rank-four balanced construction:
 

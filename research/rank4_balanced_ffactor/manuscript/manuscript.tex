@@ -19,7 +19,7 @@
 \newcommand{\Z}{\mathbb Z}
 
 \title{Closing the Rank-Four Gap for $f$-Factors in Balanced Hypergraphs}
-\author{}
+\author{Submission version -- author metadata to be supplied}
 \date{}
 
 \begin{document}
@@ -73,6 +73,7 @@ case analysis of strong cycles.
 Our results are as follows.
 
 \begin{theorem}[Balanced rank-four factors]
+\label{thm:balanced}
 The $f$-factor problem and the perfect $f$-matching problem are
 NP-complete for non-uniform balanced hypergraphs of rank at most four. The
 hardness holds for instances satisfying
@@ -82,6 +83,7 @@ hardness holds for instances satisfying
 \end{theorem}
 
 \begin{theorem}[Mengerian rank-four perfect matching]
+\label{thm:mengerian}
 Perfect Matching is NP-complete for non-uniform Mengerian hypergraphs of
 rank at most four and maximum degree at most fifteen.
 \end{theorem}
@@ -267,6 +269,13 @@ $x$, every edge multiplicity satisfies $x(e)\le1$. Thus $x$ is a 0/1
 vector and is exactly an $f$-factor.
 \end{proof}
 
+\noindent
+For the restricted problem, membership in NP is explicit: a certificate is
+the 0/1 incidence vector of the selected edges, and all vertex degrees can be
+checked in polynomial time. For unrestricted binary-encoded inputs, an
+integer multiplicity vector is likewise polynomially encoded by its bounded
+coordinates.
+
 \section{Bounded degree and the rank dichotomy}
 
 For the bounded-occurrence source, the target degrees are
@@ -277,7 +286,7 @@ For the bounded-occurrence source, the target degrees are
 \]
 and every source vertex has degree at most three. Therefore
 $\Delta(H)\le10$ and $\max_v f(v)=5$. This proves the strengthened form of
-Theorem 1.
+Theorem~\ref{thm:balanced}.
 
 Combining the present theorem with the prior rank-at-most-three algorithm
 and rank-five hardness gives the precise rank-bound classification:
@@ -350,7 +359,7 @@ has degree $5\cdot2=10$, while each source vertex has degree at most
 $5\cdot3=15$. Consequently $\Delta(H^f)\le15$, and rank remains at most
 four.
 
-\begin{proof}[Proof of Theorem 2]
+\begin{proof}[Proof of Theorem~\ref{thm:mengerian}]
 Reduce from bounded-occurrence 3DM-3, construct $H$ as above, and output
 $H^f$. The preceding propositions show that the output is Mengerian, has
 rank at most four and maximum degree at most fifteen, and has a perfect
@@ -366,7 +375,7 @@ even with maximum degree at most fifteen.
 
 \begin{proof}
 Every Mengerian hypergraph is ideal, so this is an immediate consequence of
-Theorem 2.
+Theorem~\ref{thm:mengerian}.
 \end{proof}
 
 \section{A protected selector interpretation}
@@ -381,19 +390,11 @@ requirement five forces the port sum to be either zero or three. The
 balancedness proof is specific to the stated private incidence pattern; no
 universal rank-reduction theorem is claimed.
 
-\section{Independent verification}
+\section{Verification note}
 
-The proof is independent of computation. As a separate implementation
-check, exact integer programs enumerated all 256 subsets of the eight
-possible triples on a $2\times2\times2$ source universe. The source and
-target answers agreed, direct strong-cycle enumeration found no odd strong
-cycle, and an independent odd-square incidence-matrix test found no
-forbidden submatrix in the tested one- and two-triple cases. The expansion
-solver agreed with the original f-factor solver on all 256 instances; all
-193 instances satisfying the occurrence-at-most-three condition obeyed the
-degree bounds, and all 120 perfect covers of the one-triple expansion
-projected to valid multiplicity vectors. These checks are supplementary
-falsification evidence, not a proof of any theorem.
+The proof is independent of computation. Reproducibility details and exact
+small-instance checks are supplied separately in the repository supplement;
+they are falsification evidence, not a proof of any theorem.
 
 \section{Conclusion}
 

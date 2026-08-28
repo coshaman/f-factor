@@ -1,53 +1,38 @@
 # Submission summary
 
-## Title
+## Final title
 
 Closing the Rank-Four Gap for \(f\)-Factors in Balanced Hypergraphs
 
-## Abstract
+## Selected venue
 
-We study exact incidence-degree problems in balanced hypergraphs. Previous
-work established polynomial solvability for rank at most three and
-NP-completeness for non-uniform balanced hypergraphs using a rank-five
-construction, leaving rank four open. We close this gap. We give a simple
-rank-four selector gadget and prove that it is balanced. A reduction from
-bounded-occurrence three-dimensional matching shows that both the
-\(f\)-factor problem and the perfect \(f\)-matching problem are NP-complete
-even when the maximum degree is at most ten and \(\max_v f(v)\le5\). Applying
-the standard vertex-expansion operation yields NP-completeness of ordinary
-Perfect Matching for non-uniform Mengerian hypergraphs of rank at most four
-and maximum degree at most fifteen. Since Mengerian hypergraphs are ideal,
-the same instances give an ideal-hypergraph corollary. Thus the complexity
-dichotomy by rank bound for non-uniform balanced \(f\)-factor and perfect
-\(f\)-matching problems is polynomial for bounds at most three and
-NP-complete already for bound four.
+European Journal of Combinatorics
 
-## Main results
+The final internal readiness status is EJC_STRONG_ACCEPT_READY. This is a
+submission-preparation label, not a journal decision or acceptance forecast.
 
-1. Balanced rank-four \(f\)-factor and perfect \(f\)-matching are NP-complete
-   with \(\Delta\le10\) and \(\max f\le5\).
-2. Perfect Matching is NP-complete for Mengerian rank-four hypergraphs with
-   \(\Delta\le15\).
-3. The same instances establish the ideal-hypergraph corollary.
-4. The non-uniform balanced rank-bound dichotomy is polynomial for \(r\le3\)
-   and NP-complete already for every bound \(r\ge4\).
+## Contribution
 
-## Novelty summary
+The manuscript closes the non-uniform balanced rank-four boundary for
+f-factors and perfect f-matchings. It proves NP-completeness with target
+maximum degree at most 10 and maximum demand at most 5. Vertex expansion then
+gives NP-completeness of ordinary Perfect Matching for non-uniform Mengerian,
+and hence ideal, hypergraphs of rank at most four and maximum degree at most
+15.
 
-The rank-four selector replaces the rank-five selector in the prior
-Beckenbach--Scheidweiler reduction. The final citation-chain search found no
-prior equivalent rank-four result.
+## Venue ladder
 
-## Format and venues
+* JCTB: internally rejected on significance calibration; no correctness
+  defect found.
+* EJC: selected; strong-accept readiness after final metadata insertion.
+* SIDMA: accept with minor presentation requests.
+* Discrete Optimization: accept with minor scope positioning.
+* Discrete Mathematics: strong-accept readiness and safe fallback.
 
-The manuscript is 6 pages in the current article format, excluding no
-separate supplement. A strong realistic venue is *Discrete Optimization* or
-*Discrete Mathematics*; an algorithms-oriented fallback is *Algorithmica*.
-An appropriate reach venue is *ACM Transactions on Algorithms*, subject to
-editorial fit and external referee assessment.
+See VENUE_ANALYSIS.md and VENUE_REVISION_LOG.md for the full records.
 
-## Caveats
+## Final caveats
 
-The result is non-uniform. Uniform rank-four hardness, \(\max f\le4\), and
-counting (#P) extensions are not claimed. Counting status:
-COUNTING_EXTENSION_NOT_CERTIFIED.
+The result is non-uniform. No claim is made for uniform rank-four
+hypergraphs, max f at most 4, or counting variants. The author field remains
+an explicit placeholder and must be replaced before an actual submission.
